@@ -127,6 +127,12 @@ int linearSearch(std::vector<int>& to_search, int value)
 class Quicksort
 {
 public:
+    /*
+     * Im Allgemeinen O(nlogn) Vergleiche und Recordbewegungen
+     * Mittlerer Fall: wächst genauso schnell wie O(nlogn)
+     * ist leicht zu implememtieren
+     * im schlechtesten Fall n² aber im Median besser als n², im allgemeinen nlogn
+     */
     enum class PivotType
     {
         Mean,Median
