@@ -87,9 +87,9 @@ void selection_sort(std::vector<int>& to_sort)
             {
                 imin=j;
             }
-            swaps++;
-            std::swap(to_sort[iterator],to_sort[imin]);
         }
+        swaps++;
+        std::swap(to_sort[iterator],to_sort[imin]);
     }
     float buf =  t.stop_seconds();
     std::cout << "Selection Sort->" <<"Lenght:" << to_sort.size()<< " Time:" << buf << " Compares:" << compares << " Swaps:"<<swaps<<std::endl;
@@ -226,9 +226,6 @@ private:
     int swaps =0;
     PivotType m_type;
 };
-
-
-
 
 int main() {
     auto to_sort = generateVector(0,100000,20000);
