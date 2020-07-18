@@ -3,8 +3,16 @@
 #include <chrono>
 #include <ctime>
 #include <algorithm>
+
 namespace Support
 {
+
+    void output_stats(std::string name, unsigned elements, float time, unsigned compares, unsigned swaps)
+    {
+        std::cout << name<< " for " << elements << " Elements -> Time:" << time<<" Compares:"<<compares<< " Swaps:" << swaps << std::endl;
+    }
+
+
     class timer
     {
     public:
@@ -75,8 +83,7 @@ namespace Sort
             }
         }
         float buf =  t.stop_seconds();
-
-        std::cout << "Exchange Sort->"<< "Lenght:" << to_sort.size() << " Time:" << buf << " Compares:" << vergleiche << " Swaps:"<<swaps<<std::endl;
+        Support::output_stats("Exchange Sort",to_sort.size(),buf,vergleiche,swaps);
     }
 
     void insertion_sort(std::vector<int>& to_sort)
@@ -98,8 +105,7 @@ namespace Sort
             to_sort[j]=buffer;
         }
         float buf =  t.stop_seconds();
-
-        std::cout<< "Insertion Sort->" << "Lenght:" << to_sort.size()<< " Time:" << buf << " Compares:" << compares << " Swaps:"<<swaps<<std::endl;
+        Support::output_stats("Insertion Sort",to_sort.size(),buf,compares,swaps);
     }
 
     void selection_sort(std::vector<int>& to_sort)
@@ -123,7 +129,7 @@ namespace Sort
             std::swap(to_sort[iterator],to_sort[imin]);
         }
         float buf =  t.stop_seconds();
-        std::cout << "Selection Sort->" <<"Lenght:" << to_sort.size()<< " Time:" << buf << " Compares:" << compares << " Swaps:"<<swaps<<std::endl;
+        Support::output_stats("Selection Sort",to_sort.size(),buf,compares,swaps);
     }
 
     class Quicksort
@@ -144,16 +150,16 @@ namespace Sort
             m_type = type;
             Quicksort_table(0,to_sort.size()-1);
             float buf = t.stop_seconds();
-            std::cout << "Quick Sort->";
+            std::string tpe;
             switch (m_type) {
                 case PivotType::Median:
-                    std::cout << "Median->";
+                    tpe = " Median";
                     break;
                 case PivotType::Mean:
-                    std::cout << "Mean->";
+                    tpe =  " Mean";
                     break;
             }
-            std::cout <<"Lenght:" << to_sort.size()<< " Time:" << buf << " Compares:" << compares << " Swaps:"<<swaps<<std::endl;
+            Support::output_stats("Quicksort Sort" + tpe,to_sort.size(),buf,compares,swaps);
         };
 
     private:
@@ -258,7 +264,10 @@ namespace Tree
     class BinaryTree
     {
     public:
-        BinaryTree();
+        BinaryTree() : t(nullptr)
+        {
+
+        };
         ~BinaryTree(){
             if(t)
                 deleteTree();
@@ -403,4 +412,14 @@ int main() {
     std::sort(quick_std.begin(),quick_std.end());
     std::cout << "Std_sort time:" << t.stop_seconds()<<std::endl;
     linearSearch(to_sort,to_sort[rand()%to_sort.size()]);
+
+    Tree::BinaryTree tree; 
+
+    std::cout << "----------------------------------------------------------------" << std::endl;
+
+    std::vector<int> tosort = {4,1,5,3,2};
+
+    Sort::insertion_sort(tosort);
+
+
 }
